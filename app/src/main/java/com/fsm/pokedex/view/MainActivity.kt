@@ -3,8 +3,10 @@ package com.fsm.pokedex.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.fsm.pokedex.R
 import com.fsm.pokedex.databinding.ActivityMainBinding
 import com.fsm.pokedex.view.adapter.PokeLoadStateAdapter
@@ -33,6 +35,15 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewmodel.collectPokemons().collect {
                 pagingDataAdapter.submitData(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            pagingDataAdapter.loadStateFlow.collect { loadState ->
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && pagingDataAdapter.itemCount == 0
+                binding.rvPokemons.isVisible = !isListEmpty
+                binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
             }
         }
     }
