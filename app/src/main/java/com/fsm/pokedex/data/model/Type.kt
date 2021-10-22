@@ -1,7 +1,10 @@
 package com.fsm.pokedex.data.model
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class Type(
-    val id: Int,
+    val id: Int?,
     val name: String,
-    val names: List<Name>
+    val names: List<Name>?
 )
