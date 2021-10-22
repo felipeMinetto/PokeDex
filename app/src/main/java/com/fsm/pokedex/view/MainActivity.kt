@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.fsm.pokedex.R
 import com.fsm.pokedex.databinding.ActivityMainBinding
+import com.fsm.pokedex.view.adapter.PokeLoadStateAdapter
 import com.fsm.pokedex.view.adapter.PokemonAdapter
 import com.fsm.pokedex.viewmodel.MainViewmodel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,10 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         val pagingDataAdapter = PokemonAdapter()
-        binding.rvPokemons.adapter = pagingDataAdapter
+        binding.rvPokemons.adapter =
+            pagingDataAdapter.withLoadStateHeaderAndFooter(
+                header = PokeLoadStateAdapter { pagingDataAdapter.retry() },
+                footer = PokeLoadStateAdapter { pagingDataAdapter.retry() })
 
         lifecycleScope.launch {
             viewmodel.collectPokemons().collect {

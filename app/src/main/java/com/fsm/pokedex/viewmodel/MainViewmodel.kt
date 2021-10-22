@@ -1,7 +1,9 @@
 package com.fsm.pokedex.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.fsm.pokedex.data.model.Pokemon
 import com.fsm.pokedex.data.repository.PokemonRepository
@@ -23,6 +25,6 @@ class MainViewmodel @Inject constructor(
                         desc = pokemon.types?.joinToString(" / ") { it.type.name } ?: ""
                     }
                 }
-            }
+            }.cachedIn(viewModelScope)
     }
 }
