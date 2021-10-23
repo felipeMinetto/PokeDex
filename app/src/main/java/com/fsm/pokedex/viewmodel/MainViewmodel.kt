@@ -18,11 +18,11 @@ class MainViewmodel @Inject constructor(
 ) : ViewModel() {
 
     fun collectPokemons(): Flow<PagingData<Pokemon>> {
-        return repository.getPokemonFlow()
+        return repository.getPokemonGQLFlow()
             .map { pagingData ->
                 pagingData.map { pokemon ->
                     pokemon.apply {
-                        desc = pokemon.types?.joinToString(" / ") { it.type.name } ?: ""
+                        desc = pokemon.types.joinToString(" / ") { it.type.name }
                     }
                 }
             }.cachedIn(viewModelScope)
