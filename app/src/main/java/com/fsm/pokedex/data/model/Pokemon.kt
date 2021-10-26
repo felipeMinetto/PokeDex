@@ -16,6 +16,8 @@ data class Pokemon(
     val stats: List<PokemonStat>,
     @Json(name = "pokemon_v2_pokemontypes")
     val types: List<PokemonType>,
+    @Json(name = "pokemon_v2_pokemonspecy")
+    val specy: PokemonSpecy,
     @Transient
     var desc: String = ""
 )
@@ -28,6 +30,27 @@ data class PokemonSprites(
     val back: String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/$pokemonId.png",
     val frontShiny: String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/$pokemonId.png",
     val backShiny: String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/$pokemonId.png",
+)
+
+@JsonClass(generateAdapter = true)
+data class PokemonSpecy(
+    val generation_id: Int,
+    @Json(name = "pokemon_v2_generation")
+    val generation: Generation
+)
+
+@JsonClass(generateAdapter = true)
+data class Generation(
+    val name: String,
+    val id: Int,
+    @Json(name = "pokemon_v2_generationnames")
+    val generationNames: List<GenerationName>
+)
+
+@JsonClass(generateAdapter = true)
+data class GenerationName(
+    val name: String,
+    val language_id: Int,
 )
 
 @JsonClass(generateAdapter = true)
