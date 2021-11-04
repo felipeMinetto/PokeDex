@@ -1,4 +1,4 @@
-package com.fsm.pokedex.view.adapter
+package com.fsm.pokedex.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

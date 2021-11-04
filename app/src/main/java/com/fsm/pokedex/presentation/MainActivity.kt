@@ -1,17 +1,16 @@
-package com.fsm.pokedex.view
+package com.fsm.pokedex.presentation
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.fsm.pokedex.R
 import com.fsm.pokedex.databinding.ActivityMainBinding
-import com.fsm.pokedex.view.adapter.PokeLoadStateAdapter
-import com.fsm.pokedex.view.adapter.PokemonAdapter
-import com.fsm.pokedex.viewmodel.MainViewmodel
+import com.fsm.pokedex.presentation.adapter.PokeLoadStateAdapter
+import com.fsm.pokedex.presentation.adapter.PokemonAdapter
+import com.fsm.pokedex.presentation.viewmodel.MainViewmodel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

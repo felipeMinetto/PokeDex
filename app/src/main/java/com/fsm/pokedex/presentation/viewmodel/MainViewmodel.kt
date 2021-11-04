@@ -1,4 +1,4 @@
-package com.fsm.pokedex.viewmodel
+package com.fsm.pokedex.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
