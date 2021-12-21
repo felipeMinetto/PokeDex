@@ -2,6 +2,7 @@ package com.fsm.pokedex.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.fsm.pokedex.R
