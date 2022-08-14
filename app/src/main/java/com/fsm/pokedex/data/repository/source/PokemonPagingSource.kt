@@ -7,8 +7,9 @@ import com.fsm.pokedex.data.model.Pokemon
 import com.fsm.pokedex.data.repository.PokemonRepository
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
-class PokemonPagingSource(
+class PokemonPagingSource @Inject constructor(
     private val api: PokeDexApi
 ) : PagingSource<Int, Pokemon>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Pokemon> {

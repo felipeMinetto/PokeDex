@@ -2,8 +2,6 @@ package com.fsm.pokedex.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
-import com.fsm.pokedex.api.PokeDexApi
-import com.fsm.pokedex.api.PokeDexGraphqlApi
 import com.fsm.pokedex.data.model.Pokemon
 import com.fsm.pokedex.data.model.UiModel
 import com.fsm.pokedex.data.repository.source.PokemonGQLPagingSource
@@ -13,8 +11,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PokemonRepository @Inject constructor(
-    private val api: PokeDexApi,
-    private val apiGQL: PokeDexGraphqlApi
+    private val pagingSource: PokemonPagingSource,
+    private val pagingGQLSource: PokemonGQLPagingSource
 ) {
     fun getPokemonFlow(): Flow<PagingData<Pokemon>> {
         return Pager(
@@ -22,7 +20,7 @@ class PokemonRepository @Inject constructor(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { PokemonPagingSource(api) }
+            pagingSourceFactory = { pagingSource }
         ).flow
     }
 
@@ -32,7 +30,7 @@ class PokemonRepository @Inject constructor(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { PokemonGQLPagingSource(apiGQL) }
+            pagingSourceFactory = { pagingGQLSource }
         ).flow
             .map { pagingData ->
                 pagingData.map {
@@ -63,7 +61,7 @@ class PokemonRepository @Inject constructor(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { PokemonPagingSource(api) }
+            pagingSourceFactory = { pagingSource }
         ).liveData
     }
 

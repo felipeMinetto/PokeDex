@@ -18,16 +18,20 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf(
-                    "room.schemaLocation" to "$projectDir/schemas",
-                    "room.incremental" to "true",
-                    "room.expandProjection" to "true"
-                )
-            }
+        vectorDrawables {
+            useSupportLibrary = true
         }
+
+//        Room stuff
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments += mapOf(
+//                    "room.schemaLocation" to "$projectDir/schemas",
+//                    "room.incremental" to "true",
+//                    "room.expandProjection" to "true"
+//                )
+//            }
+//        }
     }
 
     buildTypes {
@@ -55,22 +59,24 @@ android {
 }
 
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     val navigation = "2.3.5"
     val room = "2.3.0"
-    val lifecycle = "2.2.0"
+    val lifecycle = "2.4.0"
     val hilt = "2.39.1"
     val moshi = "1.12.0"
     val retrofit = "2.9.0"
     val paging = "3.0.1"
     val coroutines = " 1.5.2"
 
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.appcompat:appcompat:1.5.0")
+    implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle")
 
+    //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines")
 
@@ -79,8 +85,9 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:$hilt")
 
     //Room
-    implementation("androidx.room:room-runtime:$room")
-    annotationProcessor("androidx.room:room-compiler:$room")
+//    implementation("androidx.room:room-runtime:$room")
+//    annotationProcessor("androidx.room:room-compiler:$room")
+//    kapt("androidx.room:room-compiler:$room")
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room")
@@ -94,7 +101,7 @@ dependencies {
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofit")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofit")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
 
     //Paging
