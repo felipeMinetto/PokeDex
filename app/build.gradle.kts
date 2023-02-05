@@ -56,6 +56,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    namespace = "com.fsm.pokedex"
 }
 
 dependencies {
