@@ -7,14 +7,12 @@ plugins {
 }
 
 android {
-    val targetSdkVersion: Int by rootProject.extra
-    val minSdkVersion: Int by rootProject.extra
-    compileSdk = targetSdkVersion
+    compileSdk = libs.versions.targetSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.fsm.pokedex"
-        minSdk = minSdkVersion
-        targetSdk = targetSdkVersion
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -40,7 +38,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -54,70 +52,62 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+        }
     }
     namespace = "com.fsm.pokedex"
 }
 
 dependencies {
-    val navigation = "2.7.6"
-    val room = "2.6.1"
-    val lifecycle = "2.7.0"
-    val hilt = "2.50"
-    val moshi = "1.15.1"
-    val retrofit = "2.9.0"
-    val paging = "3.2.1"
-    val coroutines = "1.7.3"
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle")
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
 
-    //Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines")
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
-    //Hilt
-    implementation("com.google.dagger:hilt-android:$hilt")
-    ksp("com.google.dagger:hilt-compiler:$hilt")
-
-    //Room
+    // Room
 //    implementation("androidx.room:room-runtime:$room")
 //    annotationProcessor("androidx.room:room-compiler:$room")
 //    kapt("androidx.room:room-compiler:$room")
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room")
+    implementation(libs.androidx.room.ktx)
 
-    //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$navigation")
-    implementation("androidx.navigation:navigation-ui-ktx:$navigation")
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     // Testing Navigation
-    androidTestImplementation("androidx.navigation:navigation-testing:$navigation")
+    androidTestImplementation(libs.androidx.navigation.testing)
 
-    //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:$retrofit")
-    implementation("com.squareup.retrofit2:converter-moshi:$retrofit")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.logging.interceptor)
 
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
 
-    //Paging
-    implementation("androidx.paging:paging-runtime-ktx:$paging")
+    // Moshi
+    implementation(libs.moshi)
+    implementation(libs.moshi)
+    ksp(libs.moshi.kotlin.codegen)
 
-    //Moshi
-    implementation("com.squareup.moshi:moshi:$moshi")
-    implementation("com.squareup.moshi:moshi:$moshi")
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:$moshi")
+    // Glide
+    implementation(libs.glide)
 
-    //Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
